@@ -1,13 +1,13 @@
 use std::convert::Infallible;
 
-use tokio::sync::mpsc::{Sender, UnboundedSender};
+use tokio::sync::mpsc::UnboundedSender;
 
 use axum::{
     response::{Html, IntoResponse},
     routing::get,
     Router,
 };
-use tokio_stream::wrappers::{ReceiverStream, UnboundedReceiverStream};
+use tokio_stream::wrappers::UnboundedReceiverStream;
 
 #[tokio::main]
 async fn main() {
@@ -102,7 +102,7 @@ async fn streamer(sender: UnboundedSender<Result<String, Infallible>>) {
 
     // Close the document
     sender
-        .send(Ok("</main></body></html>".to_string()))
+        .send(Ok("</main><p>Done 👍</p></body></html>".to_string()))
         .unwrap();
 }
 
